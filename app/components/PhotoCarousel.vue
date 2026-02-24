@@ -84,15 +84,12 @@ onMounted(async () => {
         >
           <div class="polaroid">
             <div class="polaroid__photo">
-              <NuxtImg
+              <img
                 :src="slide.src"
                 :alt="`Wedding photo ${idx + 1}`"
                 loading="lazy"
-                format="webp"
-                quality="80"
-                sizes="sm:100vw md:50vw lg:640px"
                 class="polaroid__image"
-              />
+              >
               <div class="polaroid__overlay" />
             </div>
             <div class="polaroid__caption">
