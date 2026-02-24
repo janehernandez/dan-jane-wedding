@@ -8,6 +8,7 @@ interface SlideItem {
 
 const { data: srcs } = await useFetch<string[]>('/api/carousel-images')
 const slides = ref<SlideItem[]>([]);
+const containerRef = ref<SwiperContainer | null>(null);
 
 onMounted(async () => {
   if (!srcs.value) return;
@@ -28,36 +29,35 @@ onMounted(async () => {
     )
   );
   slides.value = results;
-});
 
-const containerRef = ref<SwiperContainer | null>(null);
-const { instance } = useSwiper(containerRef, {
-  effect: 'coverflow',
-  grabCursor: true,
-  centeredSlides: true,
-  slidesPerView: 'auto',
-  coverflowEffect: {
-    rotate: 0,
-    stretch: 0,
-    depth: 200,
-    modifier: 1.5,
-    slideShadows: false,
-  },
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: true,
-  },
-  loop: true,
-  speed: 800,
-  spaceBetween: 20,
-  keyboard: { enabled: true },
-});
-
-watch(slides, async () => {
+  // Wait for Vue to render the slides into the DOM before initializing Swiper
   await nextTick();
-  instance.value?.update();
-  instance.value?.autoplay?.start();
+
+  if (containerRef.value) {
+    Object.assign(containerRef.value, {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 200,
+        modifier: 1.5,
+        slideShadows: false,
+      },
+      autoplay: {
+        delay: 1000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      loop: true,
+      speed: 800,
+      spaceBetween: 20,
+      keyboard: { enabled: true },
+    });
+    containerRef.value.initialize();
+  }
 });
 </script>
 
@@ -75,6 +75,7 @@ watch(slides, async () => {
       <swiper-container
         ref="containerRef"
         class="photo-swiper"
+        :init="false"
       >
         <swiper-slide
           v-for="(slide, idx) in slides"
