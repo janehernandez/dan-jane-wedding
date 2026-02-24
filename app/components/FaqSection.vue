@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     question: 'Ano ang dress code?',
-    answer: 'Modern filipiniana/barong/mixed attire. Mangyaring iwasan ang puting damit bilang paggalang sa bride. Pumunta sa dress code section.',
+    answer: 'Formal / Mix Traditional - Modern attire. Mangyaring iwasan ang puting damit bilang paggalang sa bride. Pumunta sa dress code section.',
   },
   {
     question: 'Pwede bang dalhin ang mga bata?',
