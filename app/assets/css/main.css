@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+html,
+body,
+#__nuxt {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: "BBT Martires";
+  src: url("/fonts/BBTMartiresFree-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BBT Martires";
+  src: url("/fonts/BBTMartiresFree-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BBT Martires";
+  src: url("/fonts/BBTMartiresFree-ExtraBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-wedding-dark: #3d3028;
+  --color-wedding-brown: #9d7b5b;
+  --color-wedding-beige: #d9c9a8;
+  --color-wedding-ivory: #f5f3ed;
+  --color-wedding-gold: #c49a5a;
+  --color-wedding-warm: #8b5e3c;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Montserrat", sans-serif;
+  --font-martires: "BBT Martires", serif;
+}
+
+.font-martires-thin {
+  font-family: var(--font-martires);
+  font-weight: 100;
+}
+
+.font-martires-regular {
+  font-family: var(--font-martires);
+  font-weight: 400;
+}
+
+.font-martires-bold {
+  font-family: var(--font-martires);
+  font-weight: 800;
+}

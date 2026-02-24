@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 350" width="500" height="350">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Montserrat:wght@400;500&amp;display=swap');
+      .title { font-family: 'Great Vibes', cursive; font-size: 48px; fill: #2d2d2d; }
+      .subtitle { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; fill: #5a5a5a; letter-spacing: 3px; }
+      .note { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 400; fill: #5a5a5a; letter-spacing: 1px; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="350" fill="#f8f7f5"/>
+
+  <!-- Border accent -->
+  <rect x="15" y="15" width="470" height="320" fill="none" stroke="#e8e6e3" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="250" y="85" text-anchor="middle" class="title">Dan &amp; Jane</text>
+  <text x="250" y="130" text-anchor="middle" class="title">Wedding</text>
+
+  <!-- Subtitle -->
+  <text x="250" y="175" text-anchor="middle" class="subtitle">DRESS CODE COLOR PALETTE</text>
+
+  <!-- Color circles -->
+  <circle cx="100" cy="230" r="30" fill="#1a1a1a"/>
+  <circle cx="175" cy="230" r="30" fill="#5c3d2e"/>
+  <circle cx="250" cy="230" r="30" fill="#8b5a3c"/>
+  <circle cx="325" cy="230" r="30" fill="#a67c5b"/>
+  <circle cx="400" cy="230" r="30" fill="#c9a86c"/>
+
+  <!-- Note -->
+  <text x="250" y="295" text-anchor="middle" class="note">WE KINDLY REQUEST OUR GUESTS TO WEAR</text>
+  <text x="250" y="315" text-anchor="middle" class="note">THESE COLORS FOR OUR SPECIAL DAY</text>
+</svg>
