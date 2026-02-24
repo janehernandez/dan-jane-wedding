@@ -14,6 +14,6 @@ defineProps({
     <p v-for="detail in details" :key="detail" class="text-sm text-wedding-muted">
       {{ detail }}
     </p>
-    <img v-if="qr" :src="qr" :alt="`${title} QR Code`" class="w-40 h-40 mx-auto mt-4 rounded" >
+    <NuxtImg v-if="qr" :src="qr" :alt="`${title} QR Code`" loading="lazy" format="webp" quality="80" width="160" height="160" class="w-40 h-40 mx-auto mt-4 rounded" />
   </div>
 </template>

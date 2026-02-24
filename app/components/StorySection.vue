@@ -1,31 +1,28 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import storyImg1 from '~/assets/images/story/2.jpg'
-import storyImg2 from '~/assets/images/story/3.jpg'
-import storyImg3 from '~/assets/images/story/proposal.jpg'
 
-const stories = [ 
-  { 
-    title: 'Unang Pagtatagpo', 
-    date: 'Setyembre 2019', 
+const stories = [
+  {
+    title: 'Unang Pagtatagpo',
+    date: 'Setyembre 2019',
     description: 'Sa di-inaakalang pagkakataon, pinagtagpo ng tadhana ang dalawang pusong galing sa bigong pagmamahalan. Isang taga-siyudad ng Las Piñas na nagpakalayo-layo sa kabundukan ng Baguio upang makalimot sa nakaraan, at isang galing sa probinsya ng Cavite na ang propesyonal na larangan ang takbuhan upang maghilom ang pusong sugatan. Sa unang tingin, agad nagkaintindihan—para bang dalawang batang walang muwang, at ang loob sa isa\'t isa ay kay gaan.',
-    shape: 'circle', 
-    picture: storyImg1, 
-  }, 
-  { 
-    title: 'Naging Sila', 
-    date: 'Oktubre 31, 2019', 
-    description: 'Nagsimula sa simple na asaran at kulitan, naging matalik na magkaibigan, at nagsilbing sandalan ang isa\'t isa. Lumabas ng may kasamang kaibigan, lumabas ng isa\'t isa lamang ang katuwang, hanggang ang pagibig ay hindi na maitago. Nag-amin ang ginoo ng kanyang tunay na nararamdaman. Umabot ng ilang buwan ang pagsuyo, at ang binibini ay sumagot na ng "Oo." Oktubre 31, taong 2019—isa sa pinakamasayang araw ng dalawang puso. Noon ay dalawang magkahiwalay, ngayon magkasama na tungo sa paglalakbay. Sinubok ng sakuna, gulo, at trahedya, ngunit ang pangako sa isa\'t isa ay mas matibay.', 
-    shape: 'rounded-square', 
-    picture: storyImg2, 
-  }, 
-  { 
-    title: 'Ang Pagluhod', 
-    date: 'Marso 2025', 
-    description: 'Sumapit ang anim na matatamis na taon at nilampasan ang mga hamon. Pinagtibay ng pagsubok, mas tumamis ang pagibig sa haba ng panahon. Sa ibang nayon, sa hilagang-kanluran, lumuhod ang ginoo upang hingin ang kanyang kamay. Sinagot ng luha, ngiti, at isang matamis na "Oo"—at iniabot ang kanyang kamay. Sa araw ng Mayo 16, taong 2026, ang pagiisang dibdib—araw na hinintay ng dalawa upang maglakbay sa panibagong antas ng pagibig.', 
-    shape: 'circle', 
-    picture: storyImg3, 
-  }, 
+    shape: 'circle',
+    picture: '/images/2.jpg',
+  },
+  {
+    title: 'Naging Sila',
+    date: 'Oktubre 31, 2019',
+    description: 'Nagsimula sa simple na asaran at kulitan, naging matalik na magkaibigan, at nagsilbing sandalan ang isa\'t isa. Lumabas ng may kasamang kaibigan, lumabas ng isa\'t isa lamang ang katuwang, hanggang ang pagibig ay hindi na maitago. Nag-amin ang ginoo ng kanyang tunay na nararamdaman. Umabot ng ilang buwan ang pagsuyo, at ang binibini ay sumagot na ng "Oo." Oktubre 31, taong 2019—isa sa pinakamasayang araw ng dalawang puso. Noon ay dalawang magkahiwalay, ngayon magkasama na tungo sa paglalakbay. Sinubok ng sakuna, gulo, at trahedya, ngunit ang pangako sa isa\'t isa ay mas matibay.',
+    shape: 'rounded-square',
+    picture: '/images/3.jpg',
+  },
+  {
+    title: 'Ang Pagluhod',
+    date: 'Marso 2025',
+    description: 'Sumapit ang anim na matatamis na taon at nilampasan ang mga hamon. Pinagtibay ng pagsubok, mas tumamis ang pagibig sa haba ng panahon. Sa ibang nayon, sa hilagang-kanluran, lumuhod ang ginoo upang hingin ang kanyang kamay. Sinagot ng luha, ngiti, at isang matamis na "Oo"—at iniabot ang kanyang kamay. Sa araw ng Mayo 16, taong 2026, ang pagiisang dibdib—araw na hinintay ng dalawa upang maglakbay sa panibagong antas ng pagibig.',
+    shape: 'circle',
+    picture: '/images/proposal.jpg',
+  },
 ]
 
 const timelineItems = ref<HTMLElement[]>([])
@@ -129,11 +126,15 @@ const setItemRef = (el: HTMLElement | null, index: number) => {
                     'clip-circle': story.shape === 'circle'
                   }"
                 >
-                  <img
+                  <NuxtImg
                     :src="story.picture"
                     :alt="story.title"
+                    loading="lazy"
+                    format="webp"
+                    quality="80"
+                    sizes="sm:100vw md:256px"
                     class="w-full h-full object-cover"
-                  >
+                  />
                 </div>
               </div>
 

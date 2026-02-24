@@ -15,11 +15,14 @@ defineProps({
   <div
     class="relative text-center p-12 border border-wedding-beige hover:-translate-y-3 hover:shadow-2xl transition-all duration-300 overflow-hidden"
   >
-    <img
+    <NuxtImg
       v-if="bg"
       :src="bg"
+      loading="lazy"
+      format="webp"
+      quality="80"
       class="absolute inset-0 w-full h-full object-cover"
-    >
+    />
     <div v-if="bg" class="absolute inset-0 bg-white/85" />
     <div class="relative">
     <h3 class="font-display text-2xl font-medium text-wedding-dark mb-4">

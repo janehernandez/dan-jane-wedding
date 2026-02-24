@@ -52,11 +52,14 @@ const closeModal = () => {
           <!-- Main image container -->
           <div class="relative w-full h-72 md:h-96 lg:aspect-square lg:h-auto group">
             <!-- Image with warm tone -->
-            <img
-              src="/images/rsvp2.JPG"
-              alt="Wedding table setup"
-              class="rsvp-image w-full h-full object-cover"
-            >
+            <picture>
+              <source media="(min-width: 1024px)" srcset="/images/rsvp2.JPG">
+              <img
+                src="/images/rsvp-mobile.jpg"
+                alt="Wedding table setup"
+                class="rsvp-image w-full h-full object-cover"
+              >
+            </picture>
 
             <!-- Warm golden overlay -->
             <div class="absolute inset-0 bg-gradient-to-br from-wedding-gold/15 via-transparent to-wedding-warm/20 mix-blend-multiply" />
