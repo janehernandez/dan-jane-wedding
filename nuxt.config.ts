@@ -7,6 +7,14 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  image: {
+    ipx: {
+      sharpOptions: {
+        autoOrient: true,
+      },
+    },
+  },
+
   app: {
     head: {
       link: [
