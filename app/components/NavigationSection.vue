@@ -61,16 +61,21 @@ class="block w-6 h-0.5 bg-wedding-ivory transition-transform"
       </button>
     </div>
     
-    <!-- Mobile Menu -->
+  </nav>
+
+  <!-- Mobile Menu (teleported to body for full-screen coverage) -->
+  <Teleport to="body">
     <Transition name="fade">
       <div
-v-if="mobileOpen"
-           class="lg:hidden fixed inset-0 bg-wedding-dark z-[60] flex items-center justify-center overflow-y-auto">
+        v-if="mobileOpen"
+        class="lg:hidden fixed inset-0 bg-wedding-dark z-[60] flex items-center justify-center overflow-hidden"
+      >
         <!-- Close Button -->
         <button
           class="absolute top-6 right-6 p-2"
           aria-label="Close menu"
-          @click="mobileOpen = false">
+          @click="mobileOpen = false"
+        >
           <span class="block w-7 h-0.5 bg-wedding-ivory rotate-45 translate-y-0.5"/>
           <span class="block w-7 h-0.5 bg-wedding-ivory -rotate-45 -translate-y-0"/>
         </button>
@@ -78,16 +83,17 @@ v-if="mobileOpen"
         <ul class="text-center space-y-6">
           <li v-for="link in navLinks" :key="link.href">
             <a
-:href="link.href" 
-               class="font-display text-3xl text-wedding-ivory hover:text-wedding-gold transition-colors"
-               @click="mobileOpen = false">
+              :href="link.href"
+              class="font-display text-3xl text-wedding-ivory hover:text-wedding-gold transition-colors"
+              @click="mobileOpen = false"
+            >
               {{ link.label }}
             </a>
           </li>
         </ul>
       </div>
     </Transition>
-  </nav>
+  </Teleport>
 </template>
 
 <style scoped>

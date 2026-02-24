@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import bankoQr from "~/assets/images/banko-qr.png";
-import gcashQr from "~/assets/images/gcash-qr.png";
+const bankoQr = '/images/banko-qr.png'
+const gcashQr = '/images/gcash-qr.png'
 </script>
 
 <template>

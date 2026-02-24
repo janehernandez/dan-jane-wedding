@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import groomImg from '~/assets/images/couple/groom.jpg'
-import brideImg from '~/assets/images/couple/bride.jpg'
+const groomImg = '/images/groom.jpg'
+const brideImg = '/images/bride.jpg'
 </script>
 
 <template>

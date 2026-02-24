@@ -6,16 +6,13 @@ interface SlideItem {
   orientation: 'portrait' | 'landscape';
 }
 
-const imageModules = import.meta.glob(
-  "~/assets/images/carousels/*.{jpg,jpeg,JPG,JPEG}",
-  { eager: true, import: "default" }
-);
-const srcs = Object.values(imageModules) as string[];
+const { data: srcs } = await useFetch<string[]>('/api/carousel-images')
 const slides = ref<SlideItem[]>([]);
 
 onMounted(async () => {
+  if (!srcs.value) return;
   const results = await Promise.all(
-    srcs.map(
+    srcs.value.map(
       (src) =>
         new Promise<SlideItem>((resolve) => {
           const img = new Image();
@@ -34,7 +31,7 @@ onMounted(async () => {
 });
 
 const containerRef = ref<SwiperContainer | null>(null);
-const { instance, next, prev, activeIndex } = useSwiper(containerRef, {
+const { instance } = useSwiper(containerRef, {
   effect: 'coverflow',
   grabCursor: true,
   centeredSlides: true,
@@ -86,12 +83,15 @@ watch(slides, async () => {
         >
           <div class="polaroid">
             <div class="polaroid__photo">
-              <img
+              <NuxtImg
                 :src="slide.src"
                 :alt="`Wedding photo ${idx + 1}`"
                 loading="lazy"
+                format="webp"
+                quality="80"
+                sizes="sm:100vw md:50vw lg:640px"
                 class="polaroid__image"
-              >
+              />
               <div class="polaroid__overlay" />
             </div>
             <div class="polaroid__caption">

@@ -14,12 +14,17 @@ defineProps({
       class="w-48 h-48 rounded-full mx-auto mb-8 border-4 border-wedding-ivory shadow-xl overflow-hidden"
       :class="image ? '' : 'bg-gradient-to-br from-wedding-brown to-wedding-gold flex items-center justify-center'"
     >
-      <img
+      <NuxtImg
         v-if="image"
         :src="image"
         :alt="name"
+        loading="lazy"
+        format="webp"
+        quality="80"
+        width="192"
+        height="192"
         class="w-full h-full object-cover"
-      >
+      />
       <span v-else class="font-display text-6xl text-wedding-ivory">{{
         initial
       }}</span>
