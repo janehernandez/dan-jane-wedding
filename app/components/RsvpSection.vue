@@ -1,18 +1,57 @@
 <script lang="ts" setup>
 const { isSubmitting, isSuccess, error, isDuplicate, duplicateField, submitRsvp, resetState } = useRsvp()
-const form = ref({ name: '', phone: '', email: '', attending: 'yes', message: '' })
+const form = ref({ name: '', phone: '', email: '', attending: '', message: '' })
+const touched = ref({ name: false, phone: false, email: false, attending: false })
+const submitted = ref(false)
 
 const attendOptions = [
+  { value: '', label: 'Piliin ang iyong sagot', disabled: true },
   { value: 'yes', label: 'Ikinagagalak kong tanggapin ang imbitasyon' },
   { value: 'no', label: 'Ikinalulungkot ko na ako ay hindi makakapunta' },
 ]
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
+const phPhoneRegex = /^(09\d{9}|\+639\d{9})$/
+
+const errors = computed(() => {
+  const e: Record<string, string> = {}
+  const name = form.value.name.trim()
+  const phone = form.value.phone.trim()
+  const email = form.value.email.trim()
+
+  if (!name) e.name = 'Kinakailangan ang pangalan'
+  else if (name.length < 2) e.name = 'Masyadong maikli ang pangalan'
+
+  if (phone && !phPhoneRegex.test(phone)) e.phone = 'Gamitin ang format na 09XXXXXXXXX'
+
+  if (!email) e.email = 'Kinakailangan ang email'
+  else if (!emailRegex.test(email)) e.email = 'Hindi valid ang email address'
+
+  if (!form.value.attending) e.attending = 'Mangyaring pumili ng sagot'
+
+  if (form.value.message.length > 500) e.message = `${form.value.message.length}/500 na character`
+
+  return e
+})
+
+const isFormValid = computed(() => Object.keys(errors.value).length === 0)
+const showError = (field: string) => (touched.value[field as keyof typeof touched.value] || submitted.value) && errors.value[field]
 
 const showModal = ref(false)
 const rsvpDeadline = new Date('2026-05-01T00:00:00')
 const isRsvpClosed = computed(() => new Date() >= rsvpDeadline)
 
 const submitForm = async () => {
-  const success = await submitRsvp(form.value)
+  submitted.value = true
+  if (!isFormValid.value) return
+
+  const success = await submitRsvp({
+    ...form.value,
+    name: form.value.name.trim(),
+    phone: form.value.phone.trim(),
+    email: form.value.email.trim(),
+    message: form.value.message.trim(),
+  })
   if (success) {
     showModal.value = true
   }
@@ -21,7 +60,9 @@ const submitForm = async () => {
 const closeModal = () => {
   showModal.value = false
   resetState()
-  form.value = { name: '', phone: '', email: '', attending: 'yes', message: '' }
+  submitted.value = false
+  form.value = { name: '', phone: '', email: '', attending: '', message: '' }
+  touched.value = { name: false, phone: false, email: false, attending: false }
 }
 </script>
 
@@ -112,10 +153,14 @@ const closeModal = () => {
                 v-model="form.name"
                 type="text"
                 placeholder="Your Name"
-                required
-                class="w-full py-3 bg-transparent border-b border-wedding-warm/30 text-wedding-dark placeholder-wedding-dark/50 focus:outline-none focus:border-wedding-gold transition-colors text-sm"
+                class="w-full py-3 bg-transparent border-b text-wedding-dark placeholder-wedding-dark/50 focus:outline-none transition-colors text-sm"
+                :class="showError('name') ? 'border-amber-600' : 'border-wedding-warm/30 focus:border-wedding-gold'"
+                @blur="touched.name = true"
               >
-              <p v-if="isDuplicate && duplicateField === 'name'" class="mt-1 text-xs text-amber-600">
+              <p v-if="showError('name')" class="mt-1 text-xs text-amber-600">
+                {{ errors.name }}
+              </p>
+              <p v-else-if="isDuplicate && duplicateField === 'name'" class="mt-1 text-xs text-amber-600">
                 Naka-RSVP na ang pangalang ito
               </p>
             </div>
@@ -125,9 +170,14 @@ const closeModal = () => {
               <input
                 v-model="form.phone"
                 type="tel"
-                placeholder="Your Phone"
-                class="w-full py-3 bg-transparent border-b border-wedding-warm/30 text-wedding-dark placeholder-wedding-dark/50 focus:outline-none focus:border-wedding-gold transition-colors text-sm"
+                placeholder="Your Phone (optional)"
+                class="w-full py-3 bg-transparent border-b text-wedding-dark placeholder-wedding-dark/50 focus:outline-none transition-colors text-sm"
+                :class="showError('phone') ? 'border-amber-600' : 'border-wedding-warm/30 focus:border-wedding-gold'"
+                @blur="touched.phone = true"
               >
+              <p v-if="showError('phone')" class="mt-1 text-xs text-amber-600">
+                {{ errors.phone }}
+              </p>
             </div>
 
             <!-- Email -->
@@ -136,10 +186,14 @@ const closeModal = () => {
                 v-model="form.email"
                 type="email"
                 placeholder="Your Email"
-                required
-                class="w-full py-3 bg-transparent border-b border-wedding-warm/30 text-wedding-dark placeholder-wedding-dark/50 focus:outline-none focus:border-wedding-gold transition-colors text-sm"
+                class="w-full py-3 bg-transparent border-b text-wedding-dark placeholder-wedding-dark/50 focus:outline-none transition-colors text-sm"
+                :class="showError('email') ? 'border-amber-600' : 'border-wedding-warm/30 focus:border-wedding-gold'"
+                @blur="touched.email = true"
               >
-              <p v-if="isDuplicate && duplicateField === 'email'" class="mt-1 text-xs text-amber-600">
+              <p v-if="showError('email')" class="mt-1 text-xs text-amber-600">
+                {{ errors.email }}
+              </p>
+              <p v-else-if="isDuplicate && duplicateField === 'email'" class="mt-1 text-xs text-amber-600">
                 Ang email na ito ay nagamit na sa ibang RSVP
               </p>
             </div>
@@ -148,9 +202,14 @@ const closeModal = () => {
             <div class="relative">
               <select
                 v-model="form.attending"
-                class="w-full py-3 bg-transparent border-b border-wedding-warm/30 text-wedding-dark focus:outline-none focus:border-wedding-gold transition-colors text-sm appearance-none cursor-pointer"
+                class="w-full py-3 bg-transparent border-b focus:outline-none transition-colors text-sm appearance-none cursor-pointer"
+                :class="[
+                  showError('attending') ? 'border-amber-600' : 'border-wedding-warm/30 focus:border-wedding-gold',
+                  form.attending ? 'text-wedding-dark' : 'text-wedding-dark/50',
+                ]"
+                @change="touched.attending = true"
               >
-                <option v-for="opt in attendOptions" :key="opt.value" :value="opt.value">
+                <option v-for="opt in attendOptions" :key="opt.value" :value="opt.value" :disabled="opt.disabled">
                   {{ opt.label }}
                 </option>
               </select>
@@ -158,6 +217,9 @@ const closeModal = () => {
               <svg class="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-wedding-warm pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
+              <p v-if="showError('attending')" class="mt-1 text-xs text-amber-600">
+                {{ errors.attending }}
+              </p>
             </div>
 
             <!-- Message -->
@@ -166,8 +228,13 @@ const closeModal = () => {
                 v-model="form.message"
                 placeholder="Message (optional)"
                 rows="3"
-                class="w-full py-3 bg-transparent border-b border-wedding-warm/30 text-wedding-dark placeholder-wedding-dark/50 focus:outline-none focus:border-wedding-gold transition-colors text-sm resize-none"
+                maxlength="500"
+                class="w-full py-3 bg-transparent border-b text-wedding-dark placeholder-wedding-dark/50 focus:outline-none transition-colors text-sm resize-none"
+                :class="showError('message') ? 'border-amber-600' : 'border-wedding-warm/30 focus:border-wedding-gold'"
               />
+              <p v-if="showError('message')" class="mt-1 text-xs text-amber-600">
+                {{ errors.message }}
+              </p>
             </div>
 
             <!-- Submit Button -->
