@@ -6,14 +6,21 @@ interface SlideItem {
   orientation: 'portrait' | 'landscape';
 }
 
-const { data: srcs } = await useFetch<string[]>('/api/carousel-images')
+const imageModules = import.meta.glob(
+  '~/assets/images/carousels/*.{jpg,jpeg,JPG,JPEG}',
+  { eager: false, import: 'default' },
+);
+
 const slides = ref<SlideItem[]>([]);
+const loading = ref(true);
 const containerRef = ref<SwiperContainer | null>(null);
 
 onMounted(async () => {
-  if (!srcs.value) return;
+  const srcs = await Promise.all(
+    Object.values(imageModules).map((loader) => loader() as Promise<string>),
+  );
   const results = await Promise.all(
-    srcs.value.map(
+    srcs.map(
       (src) =>
         new Promise<SlideItem>((resolve) => {
           const img = new Image();
@@ -29,8 +36,9 @@ onMounted(async () => {
     )
   );
   slides.value = results;
+  loading.value = false;
 
-  // Wait for Vue to render the slides into the DOM before initializing Swiper
+  // Wait for Vue to render the slides and make the container visible before initializing Swiper
   await nextTick();
 
   if (containerRef.value) {
@@ -49,7 +57,6 @@ onMounted(async () => {
       autoplay: {
         delay: 1000,
         disableOnInteraction: false,
-        pauseOnMouseEnter: true,
       },
       loop: true,
       speed: 800,
@@ -57,6 +64,13 @@ onMounted(async () => {
       keyboard: { enabled: true },
     });
     containerRef.value.initialize();
+
+    const swiper = containerRef.value.swiper;
+    const onVisible = () => {
+      if (!document.hidden) swiper?.autoplay?.start();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    onBeforeUnmount(() => document.removeEventListener('visibilitychange', onVisible));
   }
 });
 </script>
@@ -71,8 +85,13 @@ onMounted(async () => {
       <div class="text-2xl text-wedding-gold mt-4">&hearts;</div>
     </div>
 
+    <div v-if="loading" class="flex justify-center items-center h-80">
+      <div class="text-wedding-gold font-display text-xl italic">Loading gallery...</div>
+    </div>
+
     <ClientOnly>
       <swiper-container
+        v-show="!loading"
         ref="containerRef"
         class="photo-swiper"
         :init="false"
