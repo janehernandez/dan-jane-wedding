@@ -80,7 +80,7 @@ const row5 = [
   {
     title: "Mga Dalagang Bulaklak",
     subtitle: "Flower Girls",
-    names: ["Queenie", "Avigail Gabito", "Ashlee Gabito"],
+    names: ["Avigail Gabito", "Cairene Gabito"],
   },
   {
     title: "Mga Munting Abay",
