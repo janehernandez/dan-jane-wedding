@@ -17,6 +17,21 @@ export default defineNuxtConfig({
 
   app: {
     head: {
+      title: 'Dan Jomel & Jane | May 16, 2026',
+      meta: [
+        { name: 'description', content: 'You are invited to the wedding of Dan Jomel & Jane — May 16, 2026. #JANEuineNaPagibigNiDAN' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:title', content: 'Dan Jomel & Jane | Wedding Invitation' },
+        { property: 'og:description', content: 'You are invited to the wedding of Dan Jomel & Jane — May 16, 2026. #JANEuineNaPagibigNiDAN' },
+        { property: 'og:image', content: 'https://dan-jane-wedding.com/og-image.jpg' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:url', content: 'https://dan-jane-wedding.com' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Dan Jomel & Jane | Wedding Invitation' },
+        { name: 'twitter:description', content: 'You are invited to the wedding of Dan Jomel & Jane — May 16, 2026.' },
+        { name: 'twitter:image', content: 'https://dan-jane-wedding.com/og-image.jpg' },
+      ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32.png' },
