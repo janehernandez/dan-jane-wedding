@@ -12,7 +12,7 @@ const principalSponsors = {
     "Archt. Paul Bautista at Dr. Eileen Lorenzo-Bautista",
     "G. Mariolito Vega at Gng. Gondelyna Vega",
     "G. Davimark Ignacio at Gng. Helen Veronica Ignacio-Santos",
-    "Gng. Cherry Trinidad"
+    "G. John Gutierrez at Gng. Cherry Trinidad"
   ],
 };
 
