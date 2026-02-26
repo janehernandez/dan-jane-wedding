@@ -4,7 +4,7 @@ const principalSponsors = {
   subtitle: "Principal Sponsors",
   names: [
     "G. Danilo Enriquez at Gng. Elisa Enriquez",
-    "G. Kem Bugarin at Gng. Angeline Laud Bugarin",
+    "G. Kem Bugarin at Gng. Angeline Bugarin",
     "G. Churchil Siao at Gng. Pearl Siao",
     "Engr. Wunibald Viaña at Gng. Adela Viaña",
     "Archt. Eduardo Ignacio at Gng. Susan Ignacio",
