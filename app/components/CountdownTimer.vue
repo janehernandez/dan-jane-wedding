@@ -20,9 +20,15 @@ const updateCountdown = () => {
   }
 };
 
+let timer: ReturnType<typeof setInterval>;
+
 onMounted(() => {
   updateCountdown();
-  setInterval(updateCountdown, 1000);
+  timer = setInterval(updateCountdown, 1000);
+});
+
+onBeforeUnmount(() => {
+  clearInterval(timer);
 });
 </script>
 

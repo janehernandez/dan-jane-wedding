@@ -1,12 +1,26 @@
 <script lang="ts" setup>
 import VenueMap from "../VenueMap.vue";
 
-// Venue coordinates - Villar Sipag Complex, Las Piñas
-const venueLocation = {
-  lat: 14.473474961520509,
-  lng: 120.9801095722837,
-  zoom: 16,
-};
+const markers = [
+  {
+    lat: 14.473474961520509,
+    lng: 120.9801095722837,
+    title: "Santuario de San Ezekiel",
+    address: "Seremonya",
+    color: "gold" as const,
+  },
+  {
+    lat: 14.4737092,
+    lng: 120.9813656,
+    title: "Villar Sipag Events Place",
+    address: "Resepsyon",
+    color: "red" as const,
+  },
+];
+
+// Center map between both markers
+const centerLat = (markers[0]!.lat + markers[1]!.lat) / 2;
+const centerLng = (markers[0]!.lng + markers[1]!.lng) / 2;
 </script>
 
 <template>
@@ -18,16 +32,14 @@ const venueLocation = {
     <div class="text-center mb-6">
       <p class="text-wedding-dark font-semibold">Santuario de San Ezekiel</p>
       <p class="text-wedding-muted text-sm mb-2">Seremonya</p>
-      <p class="text-wedding-dark font-semibold">V-Events Place</p>
+      <p class="text-wedding-dark font-semibold">Villar Sipag Events Place</p>
       <p class="text-wedding-muted text-sm">Resepsyon</p>
     </div>
     <VenueMap
-      :lat="venueLocation.lat"
-      :lng="venueLocation.lng"
-      :zoom="venueLocation.zoom"
-      title="Villar Sipag Complex"
-      address="C5 Extension Rd., Pulang Lupa Uno
-Las Piñas, Philippines"
+      :lat="centerLat"
+      :lng="centerLng"
+      :zoom="16"
+      :markers="markers"
     />
   </div>
 </template>

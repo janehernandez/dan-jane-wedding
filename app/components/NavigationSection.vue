@@ -19,10 +19,16 @@ watch(mobileOpen, (isOpen) => {
   }
 })
 
+const onScroll = () => {
+  isScrolled.value = window.scrollY > 50
+}
+
 onMounted(() => {
-  window.addEventListener('scroll', () => {
-    isScrolled.value = window.scrollY > 50
-  })
+  window.addEventListener('scroll', onScroll)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
 })
 </script>
 

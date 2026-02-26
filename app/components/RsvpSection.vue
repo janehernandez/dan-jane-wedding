@@ -98,6 +98,7 @@ const closeModal = () => {
               <img
                 src="/images/rsvp-mobile.jpg"
                 alt="Wedding table setup"
+                loading="lazy"
                 class="rsvp-image w-full h-full object-cover"
               >
             </picture>
