@@ -102,8 +102,9 @@ const containerRef = ref<SwiperContainer | null>(null);
 
 function onImageLoad(event: Event, index: number) {
   const img = event.target as HTMLImageElement;
-  if (img.naturalWidth < img.naturalHeight) {
-    slides.value[index].orientation = 'portrait';
+  const slide = slides.value[index];
+  if (slide && img.naturalWidth < img.naturalHeight) {
+    slide.orientation = 'portrait';
   }
 }
 
@@ -124,10 +125,11 @@ onMounted(async () => {
         slideShadows: false,
       },
       autoplay: {
-        delay: 1000,
+        delay: 3000,
         disableOnInteraction: false,
       },
       loop: true,
+      loopAdditionalSlides: 1,
       speed: 800,
       spaceBetween: 20,
       keyboard: { enabled: true },
