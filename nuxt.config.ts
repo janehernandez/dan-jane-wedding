@@ -2,15 +2,51 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  experimental: { renderJsonPayloads: false },
 
-  modules: ['@nuxt/eslint', '@nuxt/hints', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxtjs/leaflet', 'nuxt-swiper'],
+  modules: ['@nuxt/eslint', '@nuxt/hints', '@nuxt/image', '@nuxt/scripts', '@nuxt/ui', '@nuxtjs/leaflet', 'nuxt-swiper', 'nuxt-mail'],
 
   css: ['~/assets/css/main.css'],
 
   image: {
+    quality: 80,
+    format: ['webp', 'jpg'],
     ipx: {
       sharpOptions: {
         autoOrient: true,
+      },
+    },
+  },
+
+  nitro: {
+    routeRules: {
+      // Hashed build assets — immutable, cache forever
+      '/_nuxt/**': {
+        headers: { 'cache-control': 'public, max-age=31536000, immutable' },
+      },
+      // Static images in public/
+      '/images/**': {
+        headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' },
+      },
+      // Root static files (hero-bg, bg, og-image, favicons)
+      '/**/*.jpg': {
+        headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' },
+      },
+      '/**/*.png': {
+        headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' },
+      },
+      '/**/*.ico': {
+        headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' },
+      },
+      '/**/*.svg': {
+        headers: { 'cache-control': 'public, max-age=604800, stale-while-revalidate=86400' },
+      },
+      // Font files
+      '/**/*.otf': {
+        headers: { 'cache-control': 'public, max-age=31536000, immutable' },
+      },
+      '/**/*.woff2': {
+        headers: { 'cache-control': 'public, max-age=31536000, immutable' },
       },
     },
   },
@@ -49,7 +85,24 @@ export default defineNuxtConfig({
     port: 3000
   },
 
+  mail: {
+    message: {
+      to: process.env.NUXT_MAIL_TO || '',
+    },
+    smtp: {
+      host: process.env.NUXT_MAIL_SMTP_HOST || 'smtp.gmail.com',
+      port: Number(process.env.NUXT_MAIL_SMTP_PORT) || 587,
+      auth: {
+        user: process.env.NUXT_MAIL_SMTP_USER || '',
+        pass: process.env.NUXT_MAIL_SMTP_PASS || '',
+      },
+    },
+  },
+
   runtimeConfig: {
+    mailFrom: process.env.NUXT_MAIL_FROM || 'Dan & Jane Wedding <noreply@dan-jane-wedding.com>',
+    rsvpUrl: process.env.NUXT_RSVP_URL || 'https://dan-jane-wedding.com',
+    baseUrl: process.env.NUXT_BASE_URL || 'https://dan-jane-wedding.com',
     public: {
       googleSheetUrl: process.env.NUXT_PUBLIC_GOOGLE_SHEET_URL || ''
     }
