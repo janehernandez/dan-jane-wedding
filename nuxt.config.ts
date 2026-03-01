@@ -87,7 +87,7 @@ export default defineNuxtConfig({
 
   mail: {
     message: {
-      to: process.env.NUXT_MAIL_TO || '',
+      to: process.env.NUXT_MAIL_TO || 'noreply@example.com',
     },
     smtp: {
       host: process.env.NUXT_MAIL_SMTP_HOST || 'smtp.gmail.com',
