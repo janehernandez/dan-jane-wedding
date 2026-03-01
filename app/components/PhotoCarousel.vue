@@ -1,44 +1,113 @@
 <script setup lang="ts">
 import type { SwiperContainer } from 'swiper/element';
 
+const imagePaths = [
+  '/images/carousels/20250325_235938_622.jpg',
+  '/images/carousels/20250326_000314_924.jpg',
+  '/images/carousels/20250326_000347_053.jpg',
+  '/images/carousels/20250326_000518_811.jpg',
+  '/images/carousels/20250326_000533_158.jpg',
+  '/images/carousels/20250326_010157_685.jpg',
+  '/images/carousels/20250326_010213_398.jpg',
+  '/images/carousels/IMG-64454e04571c4d15d0b95f7d4a258dd4-V.jpg',
+  '/images/carousels/IMG_0055.jpeg',
+  '/images/carousels/IMG_0058.jpeg',
+  '/images/carousels/IMG_0070.jpeg',
+  '/images/carousels/IMG_0248.jpeg',
+  '/images/carousels/IMG_0259.jpeg',
+  '/images/carousels/IMG_0337.jpeg',
+  '/images/carousels/IMG_0367.jpeg',
+  '/images/carousels/IMG_0371.jpeg',
+  '/images/carousels/IMG_0440.jpeg',
+  '/images/carousels/IMG_0544.jpeg',
+  '/images/carousels/IMG_0612.jpeg',
+  '/images/carousels/IMG_0638.jpeg',
+  '/images/carousels/IMG_20191122_224844.jpg',
+  '/images/carousels/IMG_20191208_123036.jpg',
+  '/images/carousels/IMG_20200208_210057.jpg',
+  '/images/carousels/IMG_20200307_133512.jpg',
+  '/images/carousels/IMG_20210207_114124.jpg',
+  '/images/carousels/IMG_20210207_120426.jpg',
+  '/images/carousels/IMG_20210221_135136.jpg',
+  '/images/carousels/IMG_20210304_193239.jpg',
+  '/images/carousels/IMG_20220220_113226.jpg',
+  '/images/carousels/IMG_20220220_122824.jpg',
+  '/images/carousels/IMG_20220220_130727.jpg',
+  '/images/carousels/IMG_20220410_093017.jpg',
+  '/images/carousels/IMG_20220410_154707.jpg',
+  '/images/carousels/IMG_20220424_182825.jpg',
+  '/images/carousels/IMG_20220522_131442.jpg',
+  '/images/carousels/IMG_20220624_125816.jpg',
+  '/images/carousels/IMG_20220703_161221.jpg',
+  '/images/carousels/IMG_20220918_170702.jpg',
+  '/images/carousels/IMG_20220918_171544.jpg',
+  '/images/carousels/IMG_20221023_102526.jpg',
+  '/images/carousels/IMG_20221030_140317.jpg',
+  '/images/carousels/IMG_20221208_132234.jpg',
+  '/images/carousels/IMG_20221208_132401.jpg',
+  '/images/carousels/IMG_20221208_132839.jpg',
+  '/images/carousels/IMG_20221225_105705.jpg',
+  '/images/carousels/IMG_20221225_134629.jpg',
+  '/images/carousels/IMG_20230101_003957.jpg',
+  '/images/carousels/IMG_20230107_141101.jpg',
+  '/images/carousels/IMG_20230122_183748.jpg',
+  '/images/carousels/IMG_20230122_202600.jpg',
+  '/images/carousels/IMG_20230122_202657.jpg',
+  '/images/carousels/IMG_20230204_205304.jpg',
+  '/images/carousels/IMG_20230204_205855.jpg',
+  '/images/carousels/IMG_20230312_131746.jpg',
+  '/images/carousels/IMG_20230326_172404.jpg',
+  '/images/carousels/IMG_20230326_175536.jpg',
+  '/images/carousels/IMG_20230619_180402_1.jpg',
+  '/images/carousels/IMG_20230701_171547.jpg',
+  '/images/carousels/IMG_20230708_173514.jpg',
+  '/images/carousels/IMG_20240306_145126.jpg',
+  '/images/carousels/IMG_20240306_145132.jpg',
+  '/images/carousels/IMG_20240306_145139.jpg',
+  '/images/carousels/IMG_20240306_172904.jpg',
+  '/images/carousels/IMG_20240307_115510.jpg',
+  '/images/carousels/IMG_20240307_115512.jpg',
+  '/images/carousels/IMG_20240307_115749.jpg',
+  '/images/carousels/IMG_20240308_040204.jpg',
+  '/images/carousels/IMG_20240311_055951.jpg',
+  '/images/carousels/IMG_20240311_060113.jpg',
+  '/images/carousels/IMG_20240311_060140.jpg',
+  '/images/carousels/IMG_20240311_061710.jpg',
+  '/images/carousels/IMG_20250322_114824.jpg',
+  '/images/carousels/IMG_20250322_114838.jpg',
+  '/images/carousels/IMG_20250322_114934.jpg',
+  '/images/carousels/IMG_20250322_114945.jpg',
+  '/images/carousels/IMG_20250322_114946.jpg',
+  '/images/carousels/IMG_20250322_115120.jpg',
+  '/images/carousels/IMG_20250322_115130.jpg',
+  '/images/carousels/IMG_20250322_115331.jpg',
+  '/images/carousels/IMG_20250322_115348.jpg',
+  '/images/carousels/IMG_20250322_133632.jpg',
+  '/images/carousels/IMG_20250322_133645.jpg',
+  '/images/carousels/IMG_20250322_133651.jpg',
+  '/images/carousels/IMG_20250323_104318.jpg',
+  '/images/carousels/IMG_20250323_104549.jpg',
+  '/images/carousels/_storage_emulated_0_MIUI_Gallery_cloud_owner_dan x Jane_IMG_20240306_202216.jpg',
+]
+
 interface SlideItem {
   src: string;
   orientation: 'portrait' | 'landscape';
 }
 
-const imageModules = import.meta.glob(
-  '~/assets/images/carousels/*.{jpg,jpeg,JPG,JPEG}',
-  { eager: false, import: 'default' },
+const slides = ref<SlideItem[]>(
+  imagePaths.map((src) => ({ src, orientation: 'landscape' }))
 );
-
-const slides = ref<SlideItem[]>([]);
-const loading = ref(true);
 const containerRef = ref<SwiperContainer | null>(null);
 
-onMounted(async () => {
-  const srcs = await Promise.all(
-    Object.values(imageModules).map((loader) => loader() as Promise<string>),
-  );
-  const results = await Promise.all(
-    srcs.map(
-      (src) =>
-        new Promise<SlideItem>((resolve) => {
-          const img = new Image();
-          img.onload = () => {
-            resolve({
-              src,
-              orientation: img.naturalWidth >= img.naturalHeight ? 'landscape' : 'portrait',
-            });
-          };
-          img.onerror = () => resolve({ src, orientation: 'landscape' });
-          img.src = src;
-        })
-    )
-  );
-  slides.value = results;
-  loading.value = false;
+function onImageLoad(event: Event, index: number) {
+  const img = event.target as HTMLImageElement;
+  if (img.naturalWidth < img.naturalHeight) {
+    slides.value[index].orientation = 'portrait';
+  }
+}
 
-  // Wait for Vue to render the slides and make the container visible before initializing Swiper
+onMounted(async () => {
   await nextTick();
 
   if (containerRef.value) {
@@ -85,13 +154,8 @@ onMounted(async () => {
       <div class="text-2xl text-wedding-gold mt-4">&hearts;</div>
     </div>
 
-    <div v-if="loading" class="flex justify-center items-center h-80">
-      <div class="text-wedding-gold font-display text-xl italic">Loading gallery...</div>
-    </div>
-
     <ClientOnly>
       <swiper-container
-        v-show="!loading"
         ref="containerRef"
         class="photo-swiper"
         :init="false"
@@ -108,6 +172,7 @@ onMounted(async () => {
                 :alt="`Wedding photo ${idx + 1}`"
                 loading="lazy"
                 class="polaroid__image"
+                @load="onImageLoad($event, idx)"
               >
               <div class="polaroid__overlay" />
             </div>
@@ -209,12 +274,10 @@ onMounted(async () => {
     0 20px 60px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
-  transition: filter 0.5s ease, opacity 0.5s ease, transform 0.4s ease;
-  filter: blur(3px);
+  transition: opacity 0.5s ease, transform 0.4s ease;
   opacity: 0.6;
 
   .swiper-slide-active & {
-    filter: blur(0);
     opacity: 1;
   }
 

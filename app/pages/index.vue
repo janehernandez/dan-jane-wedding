@@ -3,11 +3,11 @@
     <NavigationSection />
     <HeroSection />
     <CoupleSection />
-    <PhotoCarousel />
-    <StorySection />
-    <DetailsSection />
-    <RsvpSection />
-    <FaqSection />
-    <FooterSection />
+    <LazyPhotoCarousel />
+    <LazyStorySection />
+    <LazyDetailsSection />
+    <LazyRsvpSection />
+    <LazyFaqSection />
+    <LazyFooterSection />
   </div>
 </template>

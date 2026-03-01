@@ -292,11 +292,6 @@ const closeModal = () => {
 /* RSVP image warm tone effect */
 .rsvp-image {
   filter: sepia(0.15) saturate(1.1) brightness(0.95) contrast(1.05);
-  transition: filter 0.6s ease;
-}
-
-.group:hover .rsvp-image {
-  filter: sepia(0.08) saturate(1.15) brightness(1) contrast(1.05);
 }
 
 /* Soft vignette around edges */

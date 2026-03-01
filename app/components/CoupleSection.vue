@@ -16,7 +16,7 @@ const brideImg = '/images/bride.jpg'
         />
 
         <div
-          class="text-4xl text-wedding-gold animate-pulse lg:rotate-0 rotate-90"
+          class="text-4xl text-wedding-gold lg:rotate-0 rotate-90"
         >
           ♥
         </div>
