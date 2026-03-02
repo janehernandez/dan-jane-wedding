@@ -10,7 +10,7 @@ const principalSponsors = {
     "Archt. Eduardo Ignacio at Gng. Susan Ignacio",
     "Dr. Dexter Lorenzo at Gng. Flor Lorenzo",
     "Archt. Paul Bautista at Dr. Eileen Lorenzo-Bautista",
-    "G. Mariolito Vega at Gng. Gondelyna Vega",
+    "G. Mario Vega at Gng. Gondelyna Vega",
     "G. Davimark Ignacio at Gng. Helen Veronica Ignacio-Santos",
     "G. John Gutierrez at Gng. Cherry Trinidad"
   ],

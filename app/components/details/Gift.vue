@@ -10,12 +10,12 @@ const gcashQr = '/images/gcash-qr.png'
       Mga Regalo
     </h3>
     <p class="text-wedding-muted text-sm mb-2">
-      Ang pinakamagandang regalo na maibibigay ninyo sa amin ay ang inyong
-      presensya sa aming espesyal na araw.
+      Pero paano naman ang regalo, tanong ninyo siguro?
+      Ang gusto lang namin ay makasama kayo na aming pamilya at mga kaibigan na mahal namin totoo.
     </p>
     <p class="text-wedding-muted text-sm mb-6">
-      Subalit kung nais ninyong magbigay ng pagpapala sa aming bagong simula,
-      bukas po ang aming puso sa inyong kabutihang-loob.
+      Ngunit kung nais ninyong may dalang handog,
+      ang aming alkansya ay naghihintay na mapunong lubos.
     </p>
     <div class="grid md:grid-cols-2 gap-6">
       <PaymentCard
