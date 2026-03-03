@@ -25,7 +25,7 @@ const row2 = [
   {
     title: "Munting Nobyo at Nobya",
     subtitle: "Little Groom & Little Bride",
-    names: ["Elijah Viaña", "Julienne Manasan"],
+    names: ["Elijah Viaña", "Julienne Mikaela Manasan"],
   },
 ];
 
