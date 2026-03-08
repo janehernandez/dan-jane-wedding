@@ -7,7 +7,7 @@ const principalSponsors = {
     "G. Kem Bugarin at Gng. Angeline Bugarin",
     "G. Churchil Siao at Gng. Pearl Siao",
     "Engr. Wunibald Viaña at Gng. Adela Viaña",
-    "Archt. Eduardo Ignacio at Gng. Susan Ignacio",
+    "Archt. Eduardo Ignacio at Gng. Loryden Sabornido",
     "Dr. Dexter Lorenzo at Gng. Flor Lorenzo",
     "Archt. Paul Bautista at Dr. Eileen Lorenzo-Bautista",
     "G. Mario Vega at Gng. Gondelyna Vega",
