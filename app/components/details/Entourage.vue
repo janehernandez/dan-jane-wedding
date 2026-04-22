@@ -88,7 +88,7 @@ const row5 = [
     names: [
       "Liam Samuel Laparan — Singsing",
       "Wynter Raphiel Viaña — Arras",
-      "Alex Gabito — Bibliya",
+      "Alexander Gabito — Bibliya",
       "Jerance Vien Suspene — Handog",
     ],
   },

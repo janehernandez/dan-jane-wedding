@@ -5,6 +5,14 @@ const faqs = [
     answer: 'Ang kasal ay sa Mayo 16, 2026 (Sabado) sa Santuario de San Ezekiel Moreno. Ang seremonya ay magsisimula ng 3:00 ng hapon.',
   },
   {
+    question: 'Pwede ba mag-picture?',
+    answer: 'Hinihiling po namin na huwag muna kumuha ng litrato habang isinasagawa ang seremonya. Nais naming maging ganap at solemne ang seremonya sa simbahan. Sa resepsyon ay malaya na po kayong mag-picture!',
+  },
+  {
+    question: 'Anong oras dapat nasa simbahan?',
+    answer: 'Dapat ay 2:00 PM ay nasa simbahan na kayo dahil mahigpit ang simbahan sa timeline. Mabibigyan din nito ng pagkakataon ang mga organizer na maisaayos ang seremonya nang matiwasay.',
+  },
+  {
     question: 'Kailangan ko bang mag-RSVP?',
     answer: 'Opo! Mangyaring mag-RSVP bago mag-Mayo 1, 2026 upang matulungan kami sa paghahanda. Maaari kang mag-RSVP sa pamamagitan ng form sa website na ito.',
   },
