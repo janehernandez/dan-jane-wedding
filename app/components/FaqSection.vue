@@ -2,7 +2,7 @@
 const faqs = [
   {
     question: 'Kailan at saan ang kasal?',
-    answer: 'Ang kasal ay sa Mayo 16, 2026 (Sabado) sa Santuario de San Ezekiel Moreno. Ang seremonya ay magsisimula ng 3:00 ng hapon.',
+    answer: 'Ang kasal ay sa Mayo 16, 2026 (Sabado) sa San Ezekiel Moreno Oratory. Ang seremonya ay magsisimula ng 3:00 ng hapon.',
   },
   {
     question: 'Pwede ba mag-picture?',

@@ -53,7 +53,7 @@
       <p
         class="mt-5 text-sm tracking-[0.2em] text-wedding-beige mb-6 font-light"
       >
-        Santuario de San Ezekiel Moreno
+        San Ezekiel Moreno Oratory
       </p>
     </div>
 
