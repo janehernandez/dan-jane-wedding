@@ -101,6 +101,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     mailFrom: process.env.NUXT_MAIL_FROM || 'Dan & Jane Wedding <noreply@dan-jane-wedding.com>',
+    mailReplyTo: process.env.NUXT_MAIL_REPLY_TO || '',
+    resendApiKey: process.env.RESEND_API_KEY || '',
     rsvpUrl: process.env.NUXT_RSVP_URL || 'https://dan-jane-wedding.com',
     baseUrl: process.env.NUXT_BASE_URL || 'https://dan-jane-wedding.com',
     public: {

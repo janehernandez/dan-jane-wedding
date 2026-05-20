@@ -35,10 +35,10 @@ export default defineEventHandler(async () => {
   })
   console.log('Sheet rows:', JSON.stringify(sheetResponse.data))
   if (!sheetResponse.success || !sheetResponse.data?.length) {
-    return { success: true, message: 'No pending confirmations to send', sent: 0 }
+    return { success: true, message: 'No pending program timeline emails to send', sent: 0 }
   }
 
-  const templatePath = resolve('emails/rsvp-template.html')
+  const templatePath = resolve('emails/program-timeline.html')
   const template = readFileSync(templatePath, 'utf-8')
 
   const resend = new Resend(config.resendApiKey)
@@ -46,7 +46,7 @@ export default defineEventHandler(async () => {
 
   const results: { name: string; email: string; status: 'sent' | 'failed'; error?: string }[] = []
 
-  const screenshotDir = resolve('screenshots')
+  const screenshotDir = resolve('screenshots/program-timeline')
   mkdirSync(screenshotDir, { recursive: true })
   const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] })
 
@@ -63,9 +63,25 @@ export default defineEventHandler(async () => {
 
     const text = `Kumusta ${firstName},
 
-Nakumpirma na ang iyong RSVP para sa kasal nina Dan & Jane.
-Bilang ng upuan: ${row.seats}
-Petsa: Mayo 16, 2026
+Narito ang takbo ng okasyon para sa kasal nina Dan & Jane sa Mayo 16, 2026:
+
+SEREMONYA — San Ezekiel Moreno Oratory
+2:00 PM — Pagdating sa Simbahan
+2:30 PM — Paghahanda ng Entourage March
+3:00 PM — Seremonya ng Kasal
+4:00 PM — Post-Nuptial na Larawan
+4:30 PM — Pagpunta sa Resepsyon
+
+RESEPSYON — Villar Sipag Events Place
+5:15 PM — 2nd Look & Preshow (pica-pica, photobooth, mga laro)
+5:45 PM — Unang Bahagi ng Programa (traditional dances, cutting of cake, toasting, dove release)
+6:15 PM — Hapunan at Pagkuha ng Larawan
+6:45 PM — Pangalawang Bahagi ng Programa (mga laro)
+7:15 PM — STD & SDE Showing
+7:30 PM — Pagtatapos na Mensahe
+8:00 PM — Wakas ng Programa
+
+PAALALA: Please note that this timeline will just be our guide on your big day. Pwede pong mas maging mas maaga ang shoots or same ng nasa timeline since magbabase parin po tayo sa mangyayari on the day though minor changes lang naman po sya. Thank you for understanding po. You can also send this to your entourage and family para idea po sila sa magiging flow ng ating araw. Salamat po ulit couple.
 
 Para sa karagdagang detalye, bisitahin ang ${config.rsvpUrl}.
 
@@ -79,20 +95,20 @@ Dan & Jane`
         from: config.mailFrom,
         to: [row.email],
         replyTo,
-        subject: `RSVP Confirmation for ${firstName} — Dan & Jane Wedding`,
+        subject: `Takbo ng Okasyon — Dan & Jane Wedding`,
         html,
         text,
         headers: {
           'List-Unsubscribe': `<mailto:${unsubscribeAddress}?subject=unsubscribe>`,
           'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
-          'X-Entity-Ref-ID': `rsvp-${row.row}-${Date.now()}`,
+          'X-Entity-Ref-ID': `program-${row.row}-${Date.now()}`,
         },
       })
 
       if (error) {
         throw new Error(error.message || 'Resend API error')
       }
-      console.log(`Sent to ${row.email} (id: ${data?.id})`)
+      console.log(`Sent program timeline to ${row.email} (id: ${data?.id})`)
 
       await $fetch(googleSheetUrl, {
         method: 'POST',
@@ -114,7 +130,7 @@ Dan & Jane`
       await page.setContent(html, { waitUntil: 'networkidle2' })
       const container = await page.$('.email-container')
       const safeName = row.name.trim().replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-').toLowerCase()
-      const screenshotPath = resolve(`screenshots/${safeName}.png`)
+      const screenshotPath = resolve(`screenshots/program-timeline/${safeName}.png`)
       await container!.screenshot({ path: screenshotPath })
       await page.close()
     }
